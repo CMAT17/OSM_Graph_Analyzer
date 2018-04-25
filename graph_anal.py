@@ -34,7 +34,9 @@ def main():
 
     final_dist_mtx = sc.floyd_warshall(T_adj, directed = False, unweighted = True)
 
-    print(final_dist_mtx)
+    with open("all_pairs_sp_mtx.txt", "w") as file:
+        file.write(json.dumps(final_dist_mtx))
+
 
 if __name__ == "__main__":
     main()
