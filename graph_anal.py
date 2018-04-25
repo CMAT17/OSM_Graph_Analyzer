@@ -1,6 +1,6 @@
 import osmnx as ox
 import networkx as nx
-from networkx.algorithms.shortest_paths.dense import floyd_warshall as floyd_warshall
+from scipy.sparse import csgraph as sc
 import json
 
 def all_pairs_sp(G):
@@ -28,7 +28,13 @@ def main():
         d['length'] = len_val
 
     print(T.edges(data = True))
-    all_pairs_sp(T)
+    #all_pairs_sp(T)
+
+    T_adj = nx.to_scipy_sparse_matrix(T,weight = "length")
+
+    final_dist_mtx = sc.floyd_warshall(T_adj, directed = False, unweighted = True)
+
+    print(final_dist_mtx)
 
 if __name__ == "__main__":
     main()
