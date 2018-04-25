@@ -1,5 +1,6 @@
 import osmnx as ox
 import networkx as nx
+import numpy as np
 from scipy.sparse import csgraph as sc
 import json
 
@@ -34,8 +35,7 @@ def main():
 
     final_dist_mtx = sc.floyd_warshall(T_adj, directed = False, unweighted = True)
 
-    with open("all_pairs_sp_mtx.txt", "w") as file:
-        file.write(json.dumps(final_dist_mtx))
+    np.savetxt("./all_pairs_sp.txt", final_dist_mtx)
 
 
 if __name__ == "__main__":
